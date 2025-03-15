@@ -13,7 +13,8 @@ void DoublyList::MakeNull() {
 
 // Modification to store items stored
 void Insert(int value) {
-    Node* newNode = new Node(value, nullptr, nullptr);
+    Node* newNode = new Node();
+    newNode->data=value;
 
     if (head == nullptr) { //if list is empty
         head = tail = newNode;
