@@ -1,0 +1,41 @@
+// Free Memory allocation in MakeNull() function
+void DoublyList::MakeNull() { 
+    Node* pt = head;
+    while (pt != nullptr) { 
+        Node* temp = pt; // to not lose access to the next node
+        pt = pt->next;
+        delete temp;  // free memory of the current node
+    }
+    head = nullptr;
+    tail = nullptr;
+    counter = 0;
+}
+
+// Modification to store items stored
+void Insert(int value) {
+    Node* newNode = new Node(value, nullptr, nullptr);
+
+    if (head == nullptr) { //if list is empty
+        head = tail = newNode;
+    }
+    else if (value < head->data) {  // insert at the beginning
+        newNode->next = head;
+        head->prev = newNode;
+        head = newNode;
+    }
+    else {   // insert at the middle
+        Node* q = head;
+        while (q->next && q->next->data < value) {
+            q = q->next;
+        }
+        newNode->next = q->next;
+        newNode->prev = q;
+        if (q->next) {
+            q->next->prev = newNode;
+        } else {
+            tail = newNode;  //if inserted at the end
+        }
+        q->next = newNode;
+    }
+    counter++; 
+}
